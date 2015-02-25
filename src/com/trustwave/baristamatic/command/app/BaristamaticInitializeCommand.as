@@ -71,7 +71,7 @@ package com.trustwave.baristamatic.command.app
 															CAFFE_LATTE, 
 															CAPPUCCINO, 
 															COFFEE,
-															CAFFE_ITALIANO, // test layout/scroll with additional products
+															//CAFFE_ITALIANO, // test layout/scroll with additional products
 														    DECAF_COFFEE]);
 			
 			productModel.allProducts.sort = productSort;

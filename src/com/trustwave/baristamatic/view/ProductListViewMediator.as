@@ -73,14 +73,14 @@ package com.trustwave.baristamatic.view
 				const selectedProduct:ProductVO = view.listProducts.selectedItem;
 				
 				// The click event can fire when scrolling (when no selection event has occured)
-				// So make sure there is a selected Product
-				if (selectedProduct)
+				// So make sure there is a selected Product (and that it is in stock!)
+				if (selectedProduct && selectedProduct.inStock)
 				{
 					dispatch( new ProductOrderEvent(selectedProduct) );
-					
-					view.listProducts.selectedItem = null;
 				}
 			}
+
+			view.listProducts.selectedItem = null;
 		}
 	}
 }
