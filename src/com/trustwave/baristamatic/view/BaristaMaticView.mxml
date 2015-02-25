@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableContainer styleName="content" 
+		 xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 xmlns:components="com.trustwave.baristamatic.view.components.*" xmlns:view="com.trustwave.baristamatic.view.*"
+		 >
+
+	<s:layout>
+		<s:VerticalLayout paddingLeft="0" paddingRight="0" paddingBottom="10" gap="5"/>
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.trustwave.baristamatic.util.FilterUtils;
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="off"/>
+		<s:State name="on"/>
+	</s:states>
+		
+	<s:HGroup id="hgHeader" 
+			  width="100%"  
+			  horizontalAlign="center"
+			  verticalAlign="middle"
+			  paddingLeft="5"
+			  paddingRight="10">
+		
+		<s:ToggleButton id="btnPower" 
+						toolTip="Power"
+						styleName="powerButton"
+						/>
+		
+		<s:Spacer width="100%"/>
+		
+		<s:Label id="lblHeroTitle" 
+				 styleName="headerText" 
+				 text="BaristaMatic 2.0"
+				 filters.on="{[FilterUtils.BLUE_GLOW_LARGE]}"
+				 filters.off="{[FilterUtils.NAVY_GLOW_LARGE]}"
+				 />
+		
+		<s:Spacer width="100%"/>
+		
+		<s:Button id="btnRestock"
+				  toolTip="Restock Inventory"
+				  enabled.on="false"
+				  styleName="restockButton"
+				  />
+	</s:HGroup>
+	
+	<s:HGroup width="100%" horizontalAlign="center" verticalAlign="middle">
+		<components:Clock id="clock"/>
+	</s:HGroup>
+
+	<view:ProductListView id="productList" width="100%" height="100%"/>
+	
+	<s:Spacer height="16"/>
+	
+	<view:InventoryListView id="inventoryView" width="100%" />
+		
+</s:SkinnableContainer>

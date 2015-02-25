@@ -1,0 +1,137 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+/*
+	Theme colors from trustwave.com
+
+	light blue: #008EC7
+	dark blue: #006B94
+
+	light dark: #282828
+	dark dark: #141414
+*/
+
+
+@font-face 
+{ 
+	src: url("/assets/fonts/digital-7.ttf"); 
+	fontFamily: LCD; 
+	embedAsCFF: true; 
+}
+
+@font-face 
+{ 
+	src: url("/assets/fonts/audiowide.ttf"); 
+	fontFamily: hero; 
+	embedAsCFF: true; 
+}
+
+s|Application 
+{
+	backgroundColor: #000000;
+}
+
+s|Button.restockButton
+{
+	skinClass: ClassReference("com.trustwave.baristamatic.view.skins.RestockButtonSkin");
+}
+
+s|Label.headerText
+{
+	color: #000000;
+	fontSize: 50;
+	fontFamily: hero;
+}
+
+
+s|Label.inventoryNameText
+{
+	color: #CCCCCC;
+	fontSize: 18;
+	fontFamily: hero;
+}
+
+s|Label.inventoryNameTextDisabled
+{
+	color: #000000;
+	fontSize: 18;
+	fontFamily: hero;
+}
+
+
+s|Label.clockText
+{
+	color: #000000;
+	fontSize: 24; 
+	fontFamily: LCD;
+}
+
+s|Label.currencyText
+{
+	color: #ACED78;
+	fontSize: 18;
+	fontFamily: hero;
+}
+
+s|Label.currencyTextDisabled
+{
+	color: #000000;
+	fontSize: 18;
+	fontFamily: hero;
+}
+
+s|Label.productNameText
+{
+	color: #000000;
+	fontSize: 26;
+	fontFamily: hero;
+}
+
+s|Label.subHeaderText
+{
+	color: #A3A3A3;
+	fontSize: 12;
+	fontStyle: italic;
+	fontFamily: arial;
+}
+
+s|Label.subHeaderTextDisabled
+{
+	color: #000000;
+	fontSize: 12;
+	fontStyle: italic;
+	fontFamily: arial;
+}
+
+s|List.inventoryList
+{
+	backgroundColor: #272727;
+	borderColor: #545454;
+	skinClass: ClassReference("com.trustwave.baristamatic.view.skins.InventoryListSkin");	
+}
+
+s|List.productList
+{
+	backgroundColor: #272727;
+	borderColor: #545454;
+	rollOverColor: #CCCCCC;
+	skinClass: ClassReference("com.trustwave.baristamatic.view.skins.ProductListSkin");
+}
+
+s|SkinnableContainer.content 
+{
+	backgroundColor: #222222;
+	skinClass: ClassReference("com.trustwave.baristamatic.view.skins.BaristaMaticViewSkin");
+}
+
+s|ToggleButton.powerButton
+{
+	skinClass: ClassReference("com.trustwave.baristamatic.view.skins.PowerToggleButtonSkin");
+}
+
+s|VScrollBar
+{
+	skinClass: ClassReference("com.trustwave.baristamatic.view.skins.VScrollBarSkin");
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   width="100%"
+			   height="100%"
+			   xmlns:local="*" 
+			   xmlns:context="context.*" 
+			   xmlns:skins="com.trustwave.baristamatic.view.skins.*" 
+			   xmlns:view="com.trustwave.baristamatic.view.*"
+			   >
+	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+ 	</s:layout>
+	
+	<fx:Style source="/assets/styles/baristamatic.css" />
+	
+	<fx:Declarations>
+		<context:BaristamaticContext id="context" contextView="{this}"/>
+	</fx:Declarations>
+	
+	<view:BaristaMaticView id="view" width="768" height="1024"/>
+	
+</s:Application>

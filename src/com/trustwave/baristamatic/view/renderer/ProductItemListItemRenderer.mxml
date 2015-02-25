@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				width="100%"
+				height="85"
+				autoDrawBackground="true"
+				>
+	<fx:Script>
+		<![CDATA[
+			import com.trustwave.baristamatic.model.IInventoryModel;
+			import com.trustwave.baristamatic.model.vo.IngredientVO;
+			import com.trustwave.baristamatic.model.vo.ProductVO;
+			import com.trustwave.baristamatic.util.FilterUtils;
+			import com.trustwave.baristamatic.util.ProductUtils;
+			
+			public var inventoryModel:IInventoryModel;
+			
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+				updateView();
+			}
+
+			protected function updateView():void
+			{
+				if (data)
+				{
+					if (data.isOn && data.inStock)
+					{
+						currentState = 'onAndInStock';
+					}
+					else if (data.isOn)
+					{
+						currentState = 'onAndOutOfStock';
+					}
+					else
+					{
+						currentState = 'off';
+					}
+					
+					createActiveIngredients();
+				}
+				else
+				{
+					currentState = 'off';
+				}
+			}
+			
+			protected function createActiveIngredients():void
+			{
+				hgIngredients.removeAllElements();
+				
+				var ingredient:IngredientVO;
+				
+				for (var i:int = 0; i < inventoryModel.allIngredients.length; i++)
+				{
+					ingredient = inventoryModel.allIngredients.getItemAt(i) as IngredientVO;
+					
+					var label:Label = new Label();
+					label.text = (i+1).toString();
+					
+					if (currentState=='off' || currentState == 'onAndOutOfStock' || !ProductUtils.productHasIngredient(data as ProductVO, ingredient))
+					{
+						label.styleName = 'subHeaderTextDisabled';
+						label.filters = [];
+					}
+					else if (ProductUtils.productHasIngredient(data as ProductVO, ingredient))
+					{
+						label.styleName = 'subHeaderText';
+						label.filters = [FilterUtils.GREEN_GLOW_SMALL];
+					}
+					
+					hgIngredients.addElement(label);
+				}
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:CurrencyFormatter id="currencyFormatter" useCurrencySymbol="true" currencySymbol="$"/>
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="off" stateGroups="offStates"/>
+		<s:State name="onAndInStock" stateGroups="onStates"/>
+		<s:State name="onAndOutOfStock" stateGroups="onStates"/>
+	</s:states>
+	
+	<s:Rect left="3" right="3" top="3" bottom="3" radiusX="7" radiusY="7" includeIn="off">
+		<s:stroke>
+			<s:SolidColorStroke color="#141414" weight="2"/>
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="#282828" />
+		</s:fill>
+	</s:Rect>
+	
+	<s:Rect left="3" right="3" top="3" bottom="3" radiusX="7" radiusY="7" includeIn="onAndInStock">
+		<s:stroke>
+			<s:SolidColorStroke color="#00B7FF" weight="2"/>
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="#282828" />
+		</s:fill>
+	</s:Rect>
+	
+	<s:Rect left="3" right="3" top="3" bottom="3" radiusX="7" radiusY="7" includeIn="onAndOutOfStock">
+		<s:stroke>
+			<s:SolidColorStroke color="#FF4D4D" weight="2"/>
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="#282828" />
+		</s:fill>
+	</s:Rect>
+	
+	<s:Label id="lblIngredientsLabel" 
+			 text="Active Ingredients" 
+			 styleName.off="subHeaderTextDisabled"
+			 styleName.onAndInStock="subHeaderText"
+			 styleName.onAndOutOfStock="subHeaderTextDisabled"
+			 fontSize="11"
+			 left="20"
+			 verticalCenter="-6"/>
+	
+	<s:HGroup id="hgIngredients" left="20" verticalCenter="9" gap="3"/>
+	
+	
+	<s:Label id="lblName" 
+			 text="{data.name}" 
+			 styleName="productNameText"
+			 filters.off="{[FilterUtils.NAVY_GLOW_LARGE]}"
+			 filters.onAndInStock="{[FilterUtils.BLUE_GLOW_MEDIUM]}"
+			 filters.onAndOutOfStock="{[FilterUtils.NAVY_GLOW_LARGE]}"
+			 horizontalCenter="0" 
+			 verticalCenter="0"/>
+	
+	<s:Label id="lblCost" 
+			 text="{currencyFormatter.format(data.cost)}"
+			 textAlign="left"
+			 styleName="currencyText"
+			 styleName.onAndInStock="currencyText"
+			 styleName.onAndOutOfStock="currencyTextDisabled"
+			 styleName.off="currencyTextDisabled"
+			 filters.off="{[FilterUtils.NAVY_GLOW_LARGE]}"
+			 filters.onAndInStock="{[FilterUtils.BLACK_GLOW_SMALL]}"
+			 filters.onAndOutOfStock="{[FilterUtils.NAVY_GLOW_LARGE]}"
+			 right="16" 
+			 width="75"
+			 verticalCenter="0"/>
+	
+</s:ItemRenderer>

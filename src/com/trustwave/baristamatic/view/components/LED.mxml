@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="16" height="16">
+	
+	<fx:Script>
+		<![CDATA[
+			
+			public static const COLOR_GREEN:String = "green";
+			public static const COLOR_YELLOW:String = "yellow";
+			public static const COLOR_ORANGE:String = "orange";
+			public static const COLOR_RED:String = "red";
+			
+			[Bindable]
+			[Embed('/assets/images/ledOff.png')]
+			protected var offLED:Class;
+			
+			[Bindable]
+			[Embed('/assets/images/ledGreen.png')]
+			protected var greenLED:Class;
+			
+			[Bindable]
+			[Embed('/assets/images/ledYellow.png')]
+			protected var yellowLED:Class;
+			
+			[Bindable]
+			[Embed('/assets/images/ledOrange.png')]
+			protected var orangeLED:Class;
+			
+			[Bindable]
+			[Embed('/assets/images/ledRed.png')]
+			protected var redLED:Class;
+			
+			[Bindable]
+			protected var currentLEDClass:Class = offLED;
+			
+			private var _currentColor:String;
+			
+			public function turnOn():void
+			{
+				currentState = "on";
+			}
+			
+			public function turnOff():void
+			{
+				currentState = "off";
+			}
+
+			public function get currentColor():String
+			{
+				return _currentColor;
+			}
+
+			public function set currentColor(value:String):void
+			{
+				if (value != _currentColor)
+				{
+					_currentColor = value;
+					
+					switch(value)
+					{
+						case COLOR_GREEN:
+						currentLEDClass = greenLED;
+						break;
+
+						case COLOR_YELLOW:
+						currentLEDClass = yellowLED;
+						break;
+						
+						case COLOR_ORANGE:
+						currentLEDClass = orangeLED;
+						break;
+							
+						case COLOR_RED:
+						currentLEDClass = redLED;
+						break;
+							
+						default:
+						currentLEDClass = offLED;
+					}	
+				}
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="off"/>
+		<s:State name="on"/>
+	</s:states>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:BitmapImage id="imgLEDOff"
+				   includeIn="off"
+				   source="{offLED}" 
+				   scaleX="0.55" 
+				   scaleY="0.55"/>
+	
+	<s:BitmapImage id="imgLEDOn" 
+				   includeIn="on"
+				   source="{currentLEDClass}" 
+				   scaleX="0.55" 
+				   scaleY="0.55"/>
+	
+</s:Group>

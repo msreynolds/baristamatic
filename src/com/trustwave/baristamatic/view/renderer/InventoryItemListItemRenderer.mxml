@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				xmlns:components="com.trustwave.baristamatic.view.components.*"
+				height="54"
+				width="364"
+				autoDrawBackground="true">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.trustwave.baristamatic.model.IInventoryModel;
+			import com.trustwave.baristamatic.model.vo.IngredientVO;
+			import com.trustwave.baristamatic.util.FilterUtils;
+			
+			public var inventoryModel:IInventoryModel;
+			
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+				updateView();
+			}
+			
+			protected function updateView():void
+			{
+				if (data)
+				{
+					if (data.isOn)
+					{
+						currentState = 'on';
+						turnOnLEDs();
+					}
+					else
+					{
+						currentState = 'off';
+						turnOffAllLEDs();
+					}
+				}
+				else
+				{
+					currentState = 'off';
+					turnOffAllLEDs();
+				}
+			}
+			
+			protected function turnOffAllLEDs():void
+			{
+				count1.turnOff();
+				count2.turnOff();
+				count3.turnOff();
+				count4.turnOff();
+				count5.turnOff();
+				count6.turnOff();
+				count7.turnOff();
+				count8.turnOff();
+				count9.turnOff();
+				count10.turnOff();
+			}
+			
+			protected function turnOnLEDs():void
+			{
+				(data.count > 0) ? (count1.turnOn()) : (count1.turnOff());
+				(data.count > 1) ? (count2.turnOn()) : (count2.turnOff());
+				(data.count > 2) ? (count3.turnOn()) : (count3.turnOff());
+				(data.count > 3) ? (count4.turnOn()) : (count4.turnOff());
+				(data.count > 4) ? (count5.turnOn()) : (count5.turnOff());
+				(data.count > 5) ? (count6.turnOn()) : (count6.turnOff());
+				(data.count > 6) ? (count7.turnOn()) : (count7.turnOff());
+				(data.count > 7) ? (count8.turnOn()) : (count8.turnOff());
+				(data.count > 8) ? (count9.turnOn()) : (count9.turnOff());
+				(data.count > 9) ? (count10.turnOn()) : (count10.turnOff());
+			}
+			
+			protected function getLEDState(ledNumber:int):String
+			{
+				if (data.isOn)
+				{
+					var result:String;
+					
+					result = (ledNumber == 1 && data.count > 0) ? ('on') : ('off');
+					result = (ledNumber == 2 && data.count > 1) ? ('on') : ('off');
+					result = (ledNumber == 3 && data.count > 2) ? ('on') : ('off');
+					result = (ledNumber == 4 && data.count > 3) ? ('on') : ('off');
+					result = (ledNumber == 5 && data.count > 4) ? ('on') : ('off');
+					result = (ledNumber == 6 && data.count > 5) ? ('on') : ('off');
+					result = (ledNumber == 7 && data.count > 6) ? ('on') : ('off');
+					result = (ledNumber == 8 && data.count > 7) ? ('on') : ('off');
+					result = (ledNumber == 9 && data.count > 8) ? ('on') : ('off');
+					result = (ledNumber == 10 && data.count > 9) ? ('on') : ('off');
+					
+					return result;
+				}
+				else
+				{
+					return 'off';
+				}
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="off" stateGroups="offStates"/>
+		<s:State name="on" stateGroups="onStates"/>
+	</s:states>
+	
+	<s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="7" radiusY="7">
+		<s:stroke>
+			<s:SolidColorStroke color="#141414" weight="2"/>
+		</s:stroke>
+		<s:fill>
+			<s:SolidColor color="#282828"/>
+		</s:fill>
+	</s:Rect>
+	
+	<s:Label id="lblIndex" 
+			 text="{itemIndex+1}" 
+			 styleName.on="subHeaderText"
+			 styleName.off="subHeaderTextDisabled"
+			 filters.on="{[FilterUtils.GREEN_GLOW_SMALL]}"
+			 left="10" 
+			 verticalCenter="2"/>
+	
+	
+	<s:Label id="lblName" 
+			 text="{data.name}" 
+			 styleName.on="inventoryNameText"
+			 styleName.off="inventoryNameTextDisabled"
+			 filters.on="{[FilterUtils.BLACK_GLOW_SMALL]}"
+			 filters.off="{[FilterUtils.NAVY_GLOW_MEDIUM]}"
+			 left="30" 
+			 verticalCenter="0"/>
+	
+	<s:HGroup  
+			  height="32" 
+			  verticalCenter="5" 
+			  verticalAlign="middle"
+			  right="5"
+			  gap="0"
+			  >
+		
+		<components:LED id="count1" currentColor="{LED.COLOR_RED}" currentState="{getLEDState(1)}"/>
+		<components:LED id="count2" currentColor="{LED.COLOR_RED}" currentState="{getLEDState(1)}"/>
+		<components:LED id="count3" currentColor="{LED.COLOR_ORANGE}" currentState="{getLEDState(1)}"/>
+		<components:LED id="count4" currentColor="{LED.COLOR_ORANGE}" currentState="{getLEDState(1)}"/>
+		<components:LED id="count5" currentColor="{LED.COLOR_YELLOW}" currentState="{getLEDState(1)}"/>
+		<components:LED id="count6" currentColor="{LED.COLOR_YELLOW}" currentState="{getLEDState(1)}"/>
+		<components:LED id="count7" currentColor="{LED.COLOR_GREEN}" currentState="{getLEDState(1)}"/>
+		<components:LED id="count8" currentColor="{LED.COLOR_GREEN}" currentState="{getLEDState(1)}"/>
+		<components:LED id="count9" currentColor="{LED.COLOR_GREEN}" currentState="{getLEDState(1)}"/>
+		<components:LED id="count10" currentColor="{LED.COLOR_GREEN}" currentState="{getLEDState(1)}"/>
+		
+	</s:HGroup>
+	
+</s:ItemRenderer>

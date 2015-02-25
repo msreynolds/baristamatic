@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					  xmlns:s="library://ns.adobe.com/flex/spark" 
+					  xmlns:mx="library://ns.adobe.com/flex/mx" 
+					  width="110" 
+					  height="36"
+					  creationComplete="creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import com.trustwave.baristamatic.util.FilterUtils;
+			
+			import mx.events.FlexEvent;
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				lblClock.text = timeFormatter.format(new Date());
+				
+				var timer:Timer = new Timer(1000);
+				timer.addEventListener(TimerEvent.TIMER, handleTimerInterval);
+				timer.start();
+			}
+			
+			protected function handleTimerInterval(event:TimerEvent):void
+			{
+				lblClock.text = timeFormatter.format(new Date());
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:DateTimeFormatter id="timeFormatter" dateStyle="none" timeStyle="short" />
+	</fx:Declarations>
+	
+	<s:Rect top="1" left="1" right="1" bottom="1" radiusX="4" radiusY="4" alpha="0.90" filters="{[FilterUtils.INSET_SHADOW_SMALL]}">
+		<s:stroke>
+			<s:SolidColorStroke color="0x000000" weight="2"/>
+		</s:stroke>
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:entries>
+					<s:GradientEntry color="0x00B7FF"/>
+					<s:GradientEntry color="0x008EC7"/>
+					<s:GradientEntry color="0x006B94"/>
+				</s:entries>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+	<s:Label id="lblClock"
+			 horizontalCenter="1"
+			 verticalCenter="-2"
+			 styleName="clockText"
+			 />
+	
+</s:SkinnableContainer>
